@@ -1,7 +1,7 @@
 draggable-mixin
 ==============================================================================
 
-[Short description of the addon.]
+This is a simple wrapper of the Hammer.js lib on your ember component.
 
 Installation
 ------------------------------------------------------------------------------
@@ -14,8 +14,17 @@ ember install draggable-mixin
 Usage
 ------------------------------------------------------------------------------
 
-[Longer description of how to use the addon in apps.]
+Just include this mixin to your component:
 
+```
+import DraggableMixin from 'draggable-mixin/mixins/draggable';
+
+export default Component.extend(DraggableMixin, {});
+```
+
+`panDirection` - function to restrict directions. Directional constants are taken from Hammer.
+`maxDistance` - restrict drag distance.
+`onPanEnvComplete` - function evaluated on panstop.
 
 Contributing
 ------------------------------------------------------------------------------
