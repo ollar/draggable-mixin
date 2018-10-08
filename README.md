@@ -22,8 +22,8 @@ import DraggableMixin from 'draggable-mixin/mixins/draggable';
 export default Component.extend(DraggableMixin, {});
 ```
 
-`panDirection` - function to restrict directions. Directional constants are taken from Hammer.
-`maxDistance` - restrict drag distance.
+`panDirection` - function to restrict directions. Should return directional constant. Directional constants are taken from Hammer library.
+`maxDistance` - restrict drag distance. Returns number.
 `onPanEnvComplete` - function evaluated on panstop.
 
 Contributing
