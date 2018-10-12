@@ -75,8 +75,13 @@ export default Mixin.create({
         return Math.sign(delta) * Math.min(Math.abs(delta), this.maxDistance);
     },
 
+    _beforeMove() {},
+    _afterMove() {},
+
     handlePanMove(ev) {
         ev.preventDefault();
+
+        this._beforeMove();
 
         const moveX = () =>
             (ev.direction & this.panDirection()) === ev.direction
@@ -106,6 +111,8 @@ export default Mixin.create({
 
             if (allowedHorizontal) this.set('previousMoveX', moveX());
             if (allowedVertical) this.set('previousMoveY', moveY());
+
+            this._afterMove();
         });
     },
 
