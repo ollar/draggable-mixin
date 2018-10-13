@@ -26,6 +26,8 @@ export default Component.extend(DraggableMixin, {});
 `maxDistance` - restrict drag distance. Returns number.
 `onPanEnvComplete` - function evaluated on panstop.
 
+There are also `_beforeMove` and `_afterMove` hooks to provide additional control over process.
+
 Contributing
 ------------------------------------------------------------------------------
 
