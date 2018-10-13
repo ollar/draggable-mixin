@@ -97,23 +97,21 @@ export default Mixin.create({
         const allowedVertical =
             (this.panDirection() | this.DIRECTION_VERTICAL) === this.panDirection();
 
-        requestAnimationFrame(() => {
-            this.set(
-                'style',
-                htmlSafe(
-                    `${this.cachedStyle};
-                    transform: translate(
-                        ${allowedHorizontal ? moveX() : this.previousMoveX}px,
-                        ${allowedVertical ? moveY() : this.previousMoveY}px
-                    )`
-                )
-            );
+        this.set(
+            'style',
+            htmlSafe(
+                `${this.cachedStyle};
+                transform: translate(
+                    ${allowedHorizontal ? moveX() : this.previousMoveX}px,
+                    ${allowedVertical ? moveY() : this.previousMoveY}px
+                )`
+            )
+        );
 
-            if (allowedHorizontal) this.set('previousMoveX', moveX());
-            if (allowedVertical) this.set('previousMoveY', moveY());
+        if (allowedHorizontal) this.set('previousMoveX', moveX());
+        if (allowedVertical) this.set('previousMoveY', moveY());
 
-            this._afterMove();
-        });
+        this._afterMove();
     },
 
     handlePanEnd(ev) {
