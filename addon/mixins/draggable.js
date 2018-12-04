@@ -51,7 +51,6 @@ export default Mixin.create({
     handlePanStart(ev) {
         ev.preventDefault();
         this.set('dragged', true);
-        this.set('cachedStyle', this.element.getAttribute('style'));
         const { transform } = window.getComputedStyle(this.element);
 
         if (transform === 'none') {
@@ -81,7 +80,7 @@ export default Mixin.create({
     handlePanMove(ev) {
         ev.preventDefault();
 
-        this._beforeMove();
+        this._beforeMove(ev);
 
         const moveX = () =>
             (ev.direction & this.panDirection()) === ev.direction
@@ -111,7 +110,7 @@ export default Mixin.create({
         if (allowedHorizontal) this.set('previousMoveX', moveX());
         if (allowedVertical) this.set('previousMoveY', moveY());
 
-        this._afterMove();
+        this._afterMove(ev);
     },
 
     handlePanEnd(ev) {
@@ -119,7 +118,7 @@ export default Mixin.create({
         ev.preventDefault();
         ev.srcEvent.stopPropagation();
 
-        this.onPanEnvComplete();
+        this.onPanEnvComplete(ev);
     },
 
     didInsertElement() {
@@ -132,6 +131,8 @@ export default Mixin.create({
                 direction: this.panDirection(),
             })
         );
+
+        this.set('cachedStyle', this.element.getAttribute('style'));
 
         this.hammerManager.on('panstart', this.handlePanStart);
         this.hammerManager.on('panend', this.handlePanEnd);
