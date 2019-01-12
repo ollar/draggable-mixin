@@ -34,7 +34,12 @@ export default Mixin.create({
     panDirection() {
         return this.DIRECTION_ALL;
     },
+
     maxDistance: 1000,
+
+    targetElement() {
+        return this.element;
+    },
 
     init() {
         this._super(...arguments);
@@ -51,7 +56,7 @@ export default Mixin.create({
     handlePanStart(ev) {
         ev.preventDefault();
         this.set('dragged', true);
-        const { transform } = window.getComputedStyle(this.element);
+        const { transform } = window.getComputedStyle(this.targetElement());
 
         if (transform === 'none') {
             this.set('initialTransform', [0, 0]);
@@ -124,7 +129,7 @@ export default Mixin.create({
     didInsertElement() {
         this._super(...arguments);
 
-        this.hammerManager = new Hammer.Manager(this.element);
+        this.hammerManager = new Hammer.Manager(this.targetElement());
 
         this.hammerManager.add(
             new Hammer.Pan({
@@ -132,7 +137,7 @@ export default Mixin.create({
             })
         );
 
-        this.set('cachedStyle', this.element.getAttribute('style'));
+        this.set('cachedStyle', this.targetElement().getAttribute('style'));
 
         this.hammerManager.on('panstart', this.handlePanStart);
         this.hammerManager.on('panend', this.handlePanEnd);
